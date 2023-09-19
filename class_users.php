@@ -20,7 +20,7 @@ class users {
         $valid_until="";
        
         if(!empty($uname)) {
-            $q = "INSERT INTO `mailbox_manager1` ( `mailboxNum`,`username`, `pass`, `phoneNum`) ";
+            $q = "INSERT INTO `mailbox_manager1` ( `mailboxNum`,`username`, `pass`, `phoneNum`,`valid_until`) ";
             $q .= " VALUES ( '$mailBox', '$uname','$passw','$phNum','$valid_until') ";
 
             $result = mysqli_query($this->mysql, $q);
@@ -46,11 +46,23 @@ class users {
      $mailBox=isset($params['mailboxNum']) ? $params['mailboxNum'] : "";
 
      if($id > 0 ) {
-         $q = "UPDATE `,mailbox_manager1` SET  ";
-         $q .= "`mailBoxNum`='$mailBox'  ";
-         $q .= "`phoneNum`='$phNum'  ";
-         $q .= "`username`='$uname' , ";
-         $q .= " WHERE id= $id ";
+         $q = "UPDATE `mailbox_manager1` SET  ";
+         $q .= " `mailBoxNum`= '$mailBox'  ";
+         $q .= " `phoneNum`= '$phNum'  ";
+         $q .= " `username`= '$uname'  ";
+         $q .= " WHERE id = $id ";
+
+         $result = mysqli_query($this->mysql, $q);
+     }
+
+ }
+ public function DeleteUser($params){
+     $id=isset($params['id']) ? $params['id'] : -1;
+     
+
+     if($id > 0 ) {
+         $q = "DELETE FROM `mailbox_manager1` WHERE  ";        
+         $q .= " WHERE id = $id ";
 
          $result = mysqli_query($this->mysql, $q);
      }
